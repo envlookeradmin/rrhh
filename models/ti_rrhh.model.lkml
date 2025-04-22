@@ -1,7 +1,8 @@
 connection: "@{CONNECTION_NAME}"
 
-# include all the views
-include: "/views/**/*.view.lkml"
+# include all the views and dashboards
+include: "/views/*.view.lkml"
+include: "/dashboards/*.dashboard"
 
 datagroup: alg_recursos_default_datagroup {
   max_cache_age: "1 hour"
