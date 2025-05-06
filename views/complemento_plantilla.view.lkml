@@ -74,15 +74,6 @@ view: plantilla {
     sql: ${TABLE}.GENERACION ;;
   }
 
-  # Estatus
-  dimension: estatus {
-    group_label: "Plantilla"
-    label: "Estatus"
-    description: "Nombre del Estatus"
-    type: string
-    sql: ${TABLE}.ESTATUS ;;
-  }
-
   # Clase Medida
   dimension: clase_medida {
     group_label: "Plantilla"
@@ -158,7 +149,7 @@ view: plantilla {
       value: "yes"
     }
 
-    filters: [estatus: "Activo"]
+    filters: [clase_medida: "Activo"]
   }
 
   measure: altas_month {
@@ -173,7 +164,7 @@ view: plantilla {
       value: "yes"
     }
 
-    filters: [clase_medida: "Alta, Contratación, Reingreso a la empresa"]
+    filters: [clase_medida: "Alta"]
   }
 
   # personal autorizado
@@ -317,7 +308,6 @@ view: plantilla {
     fields: [
       genero,
       generacion,
-      estatus,
       subdivision,
       area_personal,
       sociedad
