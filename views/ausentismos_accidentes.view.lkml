@@ -40,6 +40,10 @@ view: vw_complemento_ausentismos_accidentes {
     type: string
     sql: ${TABLE}.Subdivision ;;
   }
+  dimension: codigo_pais {
+    type: string
+    sql: ${TABLE}.CodigoPais ;;
+  }
   dimension: subtipo {
     type: string
     sql: ${TABLE}.Subtipo ;;
