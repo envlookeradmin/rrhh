@@ -32,3 +32,10 @@ explore: plantilla {
     sql_on: ${plantilla.periodo_raw} = ${calendario.periodo_raw};;
   }
 }
+explore: complemento_nomina {
+  join: calendario_nomina {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${calendario_nomina.fecha_raw} = ${complemento_nomina.fecha_pago_raw} ;;
+  }
+}
