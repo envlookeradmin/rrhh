@@ -267,8 +267,8 @@ view: plantilla {
     label: "Rotacion Meta Mes"
     description: "Rotacion meta del mes actual"
 
-    type:  sum
-    sql: ROUND(${cantidad} / 100, 2);;
+    type:  average
+    sql: ${cantidad};;
     value_format: "0.00\%"
 
     filters: {
@@ -276,7 +276,7 @@ view: plantilla {
       value: "yes"
     }
 
-    filters: [clase_medida: "Rotacion"]
+    filters: [clase_medida: "Meta Rotacion"]
   }
 
   # Rotacion mensual
