@@ -222,7 +222,7 @@ view: plantilla {
     group_label: "Medidas"
     label: "Rotacion Voluntario Mes %"
     type: number
-    sql: CASE WHEN ${activos_month}=0  then 100 else (${bajas_vol_month}) / NULLIF(${activos_month}, 0) end  ;;
+    sql: CASE WHEN ${activos_month}=0  then 100 else ((${bajas_vol_month}) / NULLIF(${activos_month}, 0) * 100) end  ;;
 
     value_format: "0.00\%"
   }
@@ -248,7 +248,7 @@ view: plantilla {
     group_label: "Medidas"
     label: "Rotacion Involuntario Mes %"
     type: number
-    sql: CASE WHEN ${activos_month}=0  then 100 else (${bajas_invol_month}) / NULLIF(${activos_month}, 0) end  ;;
+    sql: CASE WHEN ${activos_month}=0  then 100 else ((${bajas_invol_month}) / NULLIF(${activos_month}, 0) * 100) end  ;;
 
     value_format: "0.00\%"
   }
@@ -257,7 +257,7 @@ view: plantilla {
     group_label: "Medidas"
     label: "Rotacion Mes %"
     type: number
-    sql: CASE WHEN ${activos_month}=0  then 0 else (${bajas_month}) / NULLIF(${activos_month}, 0) end  ;;
+    sql: CASE WHEN ${activos_month}=0  then 100 else ((${bajas_month}) / NULLIF(${activos_month}, 0) * 100) end  ;;
 
     value_format: "0.00\%"
   }
