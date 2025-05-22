@@ -1,6 +1,10 @@
 view: complemento_nomina {
   sql_table_name: `envases-analytics-eon-poc.RPT_CORP.tbl_complemento_nomina` ;;
 
+  dimension: codigo_pais {
+    type: string
+    sql: ${TABLE}.CodigoPais ;;
+  }
   dimension: id_sociedad {
     hidden: yes
     type: string
