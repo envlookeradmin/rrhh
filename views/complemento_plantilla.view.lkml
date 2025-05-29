@@ -8,6 +8,15 @@ view: plantilla {
   # Dimensiones
   #------------------#
 
+# Posicion del empleado
+  dimension: posicion {
+    group_label: "Plantilla"
+    label: "Posición"
+    description: "Posición del empleado"
+    type: string
+    sql: ${TABLE}.POSICION ;;
+  }
+
   # Nombre de la Sociedad
   dimension: sociedad {
     group_label: "Plantilla"
