@@ -36,6 +36,11 @@ explore: complemento_nomina {
   join: calendario_nomina {
     type: inner
     relationship: many_to_one
-    sql_on: ${calendario_nomina.fecha_raw} = ${complemento_nomina.fecha_pago_raw} ;;
+    sql_on: (${complemento_nomina.codigo_pais} = 'MX'
+        AND ${calendario_nomina.fecha_raw} = ${complemento_nomina.fecha_pago_raw})
+      OR
+      (${complemento_nomina.codigo_pais} != 'MX'
+        AND ${calendario_nomina.fecha_raw} = DATE_TRUNC(${complemento_nomina.fecha_pago_raw}, MONTH)
+        );;
   }
 }
