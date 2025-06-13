@@ -94,12 +94,24 @@ view: complemento_nomina {
     label: "Des_Trab"
     sql: ${id_denominacion} IN ("1296", "1297") ;;
   }
+  dimension: es_total_salario {
+    description: "Define si un registro es Salario"
+    type: yesno
+    group_label: "Filtros"
+    label: "Salarios"
+    sql: ${id_denominacion} IN ("1000") ;;
+  }
   dimension: es_total_nomina {
     description: "Define si un registro es Pago de Nomina"
     type: yesno
     group_label: "Filtros"
     label: "T.Extra + Des_Trab"
     sql: ${id_denominacion} IN ("1110", "1112", "1296", "1297", "1000") ;;
+  }
+  measure: salario {
+    type: sum
+    sql: ${importe_mxn} ;;
+    filters: [es_total_salario: "yes"]
   }
   measure: nomina {
     type: sum
