@@ -126,7 +126,7 @@ view: complemento_nomina {
   measure: pct_tiempo_extra {
     label: "% Tiempo Extra"
     type: number
-    sql: SAFE_DIVIDE(${tiempo_extra},${nomina}) ;;
+    sql: SAFE_DIVIDE(${tiempo_extra},${salario}) ;;
     value_format_name: percent_2
   }
 
@@ -153,7 +153,7 @@ view: complemento_nomina {
   measure: pct_te_dt {
     label: "% TE + Des_Trab"
     type: number
-    sql: SAFE_DIVIDE(${tiempo_extra_mas_descanso},${nomina}) ;;
+    sql: SAFE_DIVIDE(${tiempo_extra_mas_descanso},${salario}) ;;
     value_format_name: percent_2
   }
   measure: pct_te_dt_icon {
