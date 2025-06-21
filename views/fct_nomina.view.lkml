@@ -28,7 +28,7 @@ view: fct_nomina {
       envases-analytics-qa.RAW_CPI_RRHH_MX.ODATA_NOMINA NOM
       LEFT JOIN `@{GCP_PROJECT}.RAW_CPI_RRHH_MX.cat_text_cc_nomina` CC
         ON NOM.LGART = CC.LGART
-      LEFT JOIN `@{GCP_PROJECT}.RPT_CORP.RRHH_TiposClasificacion` TIPO_CLASIFICACION
+      LEFT JOIN `@{GCP_PROJECT}.RPT_CORP.RRHH_TiposClasificacion2` TIPO_CLASIFICACION
         ON NOM.LGART = TIPO_CLASIFICACION.Codigo
       LEFT JOIN `@{GCP_PROJECT}.RAW_CPI_RRHH_MX.cat_div_personal` DVP
         ON NOM.WERKS = DVP.PERSA
