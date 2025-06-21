@@ -44,3 +44,5 @@ explore: complemento_nomina {
         );;
   }
 }
+explore: fct_nomina {}
+explore: fct_rh {}
