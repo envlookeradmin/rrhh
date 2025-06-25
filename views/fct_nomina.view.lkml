@@ -25,7 +25,7 @@ view: fct_nomina {
       NOM.ANZHL CANTIDAD,
       NOM.BETRG IMPORTE
     FROM
-      envases-analytics-qa.RAW_CPI_RRHH_MX.ODATA_NOMINA NOM
+      `@{GCP_PROJECT}.RAW_CPI_RRHH_MX.ODATA_NOMINA` NOM
       LEFT JOIN `@{GCP_PROJECT}.RAW_CPI_RRHH_MX.cat_text_cc_nomina` CC
         ON NOM.LGART = CC.LGART
       LEFT JOIN `@{GCP_PROJECT}.RPT_CORP.RRHH_TiposClasificacion2` TIPO_CLASIFICACION
