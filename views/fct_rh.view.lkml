@@ -7,7 +7,7 @@ view: fct_rh {
         MED.MASSN IDClaseMedida,
         CLS.MNTXT ClaseMedida,
         MED.MASSG IDMotivoMedida,
-        MOT.MNTXT MotivoMedida,
+        MOT.MGTXT MotivoMedida,
         CASE WHEN STAT2 = '3' THEN 'Activo' ELSE 'Inactivo' END Estatus,
         ASG.BUKRS IDSociedad,
         SOC.BUTXT Sociedad,
