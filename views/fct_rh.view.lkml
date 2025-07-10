@@ -25,28 +25,28 @@ view: fct_rh {
         DPR.GBDAT,
         DATE_ADD(CURRENT_DATE(), INTERVAL -1 DAY) ACTUALIZACION
       FROM
-        `envases-analytics-qa.RAW_CPI_RRHH_MX.PA0000_MEDIDAS` MED
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.cat_clase_medida` CLS ON
+        `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.PA0000_MEDIDAS` MED
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.cat_clase_medida` CLS ON
           MED.MASSN = CLS.MASSN
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.cat_motivo_medida` MOT ON
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.cat_motivo_medida` MOT ON
           MED.MASSG = MOT.MASSG AND MED.MASSN = MOT.MASSN
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.PA0001_ASIGNACION` ASG ON
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.PA0001_ASIGNACION` ASG ON
           MED.PERNR = ASG.PERNR AND ASG.BEGDA >= MED.BEGDA AND ASG.ENDDA <= MED.ENDDA
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.cat_sociedades` SOC ON
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.cat_sociedades` SOC ON
           ASG.BUKRS = SOC.BUKRS
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.cat_div_personal` DIV ON
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.cat_div_personal` DIV ON
           ASG.WERKS = DIV.PERSA
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.cat_subdiv_personal` SDV ON
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.cat_subdiv_personal` SDV ON
           ASG.BTRTL = SDV.BTRTL
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.cat_cecos` CCS ON
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.cat_cecos` CCS ON
           ASG.KOSTL = CCS.KOSTL
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.cat_unidad_organizativa` UOR ON
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.cat_unidad_organizativa` UOR ON
           ASG.ORGEH = CAST(UOR.ORGE AS NUMERIC)
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.cat_posiciones` POS ON
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.cat_posiciones` POS ON
           ASG.STELL = CAST(POS.PLANS AS NUMERIC)
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.PA0002_DATOS_PERS` DPR ON
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.PA0002_DATOS_PERS` DPR ON
           MED.PERNR = DPR.PERNR AND DPR.BEGDA >= MED.BEGDA AND DPR.ENDDA <= MED.ENDDA
-        LEFT JOIN `envases-analytics-qa.RAW_CPI_RRHH_MX.PA0008_REMUNERACIONES` RMN ON
+        LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.PA0008_REMUNERACIONES` RMN ON
           MED.PERNR = RMN.PERNR AND RMN.BEGDA >= MED.BEGDA AND RMN.ENDDA <= MED.ENDDA
       order by 1,2,3 ;;
   }
