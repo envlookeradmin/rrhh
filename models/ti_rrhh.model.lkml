@@ -44,5 +44,16 @@ explore: complemento_nomina {
         );;
   }
 }
-explore: fct_nomina {}
-explore: fct_rh {}
+explore: fct_nomina {
+  join: filtros {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${fct_nomina.division_envases} = ${filtros.division_envases} ;;
+  }
+}
+explore: fct_rh {
+  join: filtros {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${fct_rh.division_envases} = ${filtros.division_envases} ;;
+  }}

@@ -16,6 +16,12 @@ view: fct_rh {
         ASG.BTRTL IDSubdivision,
         SDV.BTEXT Subdivision,
         CCS.LTEXT CentroCostos,
+        CASE
+        WHEN SUBSTR(ASG.KOSTL,2,1) = 'A' THEN 'ALU'
+        WHEN SUBSTR(ASG.KOSTL,2,1) = 'P' THEN 'PET'
+        WHEN SUBSTR(ASG.KOSTL,2,1) = 'F' THEN 'ALG'
+        WHEN SUBSTR(ASG.KOSTL,2,1) = 'C' THEN 'CORP'
+        ELSE 'OTRO' END DIV_ENVASES,
         UOR.ORGTX UnidadOrganizativa,
         POS.PLSTX Posicion,
         CASE WHEN DPR.GESCH = '1' THEN 'Masculino' ELSE 'Femenino' END Sexo,
@@ -52,7 +58,12 @@ view: fct_rh {
   }
 
 
-
+  dimension: division_envases {
+    label: "División de Envases"
+    description: "Nombre de la división de Envases"
+    type: string
+    sql: ${TABLE}.DIV_ENVASES ;;
+  }
 
   dimension: codigo_personal {
     type: string
@@ -122,6 +133,7 @@ view: fct_rh {
     }
 
   }
+
 
   measure: Importe_TODO {
     type: sum
