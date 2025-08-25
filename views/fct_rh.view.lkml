@@ -49,7 +49,7 @@ view: fct_rh {
         LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.cat_unidad_organizativa` UOR ON
           ASG.ORGEH = CAST(UOR.ORGE AS NUMERIC)
         LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.cat_posiciones` POS ON
-          ASG.STELL = CAST(POS.PLANS AS NUMERIC)
+          ASG.PLANS = CAST(POS.PLANS AS NUMERIC)
         LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.PA0002_DATOS_PERS` DPR ON
           MED.PERNR = DPR.PERNR AND DPR.BEGDA >= MED.BEGDA AND DPR.ENDDA <= MED.ENDDA
         LEFT JOIN `envases-analytics-eon-poc.RAW_CPI_RRHH_MX.PA0008_REMUNERACIONES` RMN ON
