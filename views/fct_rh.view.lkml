@@ -126,7 +126,7 @@ view: fct_rh {
   measure: Importe {
     type: sum
     sql: ${salario_semanal} ;;
-
+    drill_fields: [subdivision, centro_costos, unidad_organizativa, posicion, year, Importe]
     filters: {
       field: is_current_year
       value: "yes"
@@ -181,7 +181,6 @@ view: fct_rh {
 
   measure: Mensual{
     type: count_distinct
-    drill_fields: [detail*]
     sql: ${codigo_personal} ;;
     filters: {
       field: is_current_month
@@ -192,7 +191,7 @@ view: fct_rh {
 
   measure: year{
     type: count
-    drill_fields: [detail*]
+    drill_fields: [subdivision, centro_costos, unidad_organizativa, posicion, year, Importe]
 
     filters: {
       field: is_current_year
@@ -203,7 +202,6 @@ view: fct_rh {
 
   measure: lyear{
     type: count
-    drill_fields: [detail*]
 
     filters: {
       field: is_previous_year
@@ -319,32 +317,5 @@ view: fct_rh {
     type: date
     datatype: date
     sql: ${TABLE}.GBDAT ;;
-  }
-
-  set: detail {
-    fields: [
-      codigo_personal,
-
-      fin,
-      idclase_medida,
-      clase_medida,
-      idmotivo_medida,
-      motivo_medida,
-      estatus,
-      idsociedad,
-      sociedad,
-      iddivision,
-      division,
-      idsubdivision,
-      subdivision,
-      centro_costos,
-      unidad_organizativa,
-      posicion,
-      sexo,
-      nacimiento,
-      pais_nacimiento,
-      salario_semanal,
-      gbdat
-    ]
   }
 }
