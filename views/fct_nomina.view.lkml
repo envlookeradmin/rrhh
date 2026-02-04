@@ -532,7 +532,9 @@ view: fct_nomina {
 
     label: "% Variacion Anual (Importe)"
     type: number
-    sql: CASE WHEN ${lyear}=0  then 100 else (${year} - ${lyear}) / NULLIF(${lyear},0)*100 end  ;;
+    sql: CASE WHEN ${lyear}=0  AND ${year} = 0 then 0
+              WHEN ${lyear}=0  then 100
+          else (${year} - ${lyear}) / NULLIF(${lyear},0)*100 end  ;;
 
     value_format: "0.00\%"
   }
@@ -613,8 +615,8 @@ view: fct_nomina {
     description: "Variación % entre el importe del mes actual contra el mes del año pasado"
 
     type: number
-    sql: CASE WHEN ${importe_lmonth} = 0
-        THEN 100
+    sql: CASE WHEN ${importe_lmonth} = 0 AND ${importe_month} = 0  THEN 0
+              WHEN ${importe_lmonth} = 0 THEN 100
         ELSE (${importe_month} - ${importe_lmonth}) / NULLIF(${importe_lmonth}, 0) * 100
       END ;;
 
@@ -640,8 +642,8 @@ view: fct_nomina {
     description: "Variación % entre el importe del mes del año pasado contra el mes de hace dos años"
 
     type: number
-    sql: CASE WHEN ${importe_lmonth2} = 0
-        THEN 100
+    sql: CASE WHEN ${importe_lmonth2} = 0  AND ${importe_lmonth} = 0  THEN 0
+              WHEN ${importe_lmonth2} = 0 THEN 100
         ELSE (${importe_lmonth} - ${importe_lmonth2}) / NULLIF(${importe_lmonth2}, 0) * 100
       END ;;
 
@@ -715,14 +717,14 @@ view: fct_nomina {
 
   # Variación % del Importe mensual de Tiempo Extra contra Sueldos
   #measure: tiempo_extra_vs_sueldos_month {
-    #type: number
+  #type: number
   #  group_label: "Clasificación de Concepto"
   #  label: "% T.E. vs Sueldos Mensual"
   #  description: "Variación % del Importe mensual de Tiempo Extra contra Sueldos"
-    # sql: ${importe_tiempo_extra_month} / NULLIF(${importe_sueldos_month}, 0) ;;
+  # sql: ${importe_tiempo_extra_month} / NULLIF(${importe_sueldos_month}, 0) ;;
   #  sql: SAFE_DIVIDE(${importe_tiempo_extra_month},${importe_sueldos_month}) ;;
   #  value_format_name: percent_2
-    #value_format: "0.00\%"
+  #value_format: "0.00\%"
   #}
 
   measure: tiempo_extra_vs_sueldos_month {

@@ -1,19 +1,19 @@
 ---
 - dashboard: ausentismos
   title: Ausentismos
-  layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: Dl0BIoruqPO85kwhiLwpcK
+  preferred_slug: zJ1xAtZj51ywOaUnKGLh72
+  layout: newspaper
   elements:
   - title: Ausentismos por área de personal y div negocio
     name: Ausentismos por área de personal y div negocio
     model: ti_rrhh
     explore: vw_complemento_ausentismos_accidentes
     type: looker_grid
-    fields: [vw_complemento_ausentismos_accidentes.area_personal, vw_complemento_ausentismos_accidentes.division,
-      vw_complemento_ausentismos_accidentes.ratio_operaciones, vw_complemento_ausentismos_accidentes.ausentismos_month,
-      vw_complemento_ausentismos_accidentes.porcentaje_ausentismo]
+    fields: [vw_complemento_ausentismos_accidentes.area_personal, vw_complemento_ausentismos_accidentes.ratio_operaciones,
+      vw_complemento_ausentismos_accidentes.ausentismos_month, vw_complemento_ausentismos_accidentes.porcentaje_ausentismo,
+      vw_complemento_ausentismos_accidentes.division_envases]
     filters:
       vw_complemento_ausentismos_accidentes.area_personal: "-NULL"
     sorts: [vw_complemento_ausentismos_accidentes.area_personal]
@@ -51,14 +51,13 @@
       vw_complemento_ausentismos_accidentes.indice_severidad_month: Índice de Severidad
       vw_complemento_ausentismos_accidentes.ratio_operaciones: Días laborados
       vw_complemento_ausentismos_accidentes.ausentismos_month: Faltas injustificadas
+      vw_complemento_ausentismos_accidentes.division_envases: Div. Negocio
     series_cell_visualizations:
       vw_complemento_ausentismos_accidentes.accidentes_adp_month:
         is_active: true
     header_font_color: "#fff"
     header_background_color: "#b03427"
     series_value_format:
-      vw_complemento_ausentismos_accidentes.ratio_operaciones:
-        format_string:
       vw_complemento_ausentismos_accidentes.ausentismos_month:
         name: decimal_2
         decimals: '2'
@@ -95,12 +94,12 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Periodo: calendario.sel_periodo
-      Division: vw_complemento_ausentismos_accidentes.division
       Centro: vw_complemento_ausentismos_accidentes.subdivision
       Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
       Sociedad: vw_complemento_ausentismos_accidentes.sociedad
-    row: 0
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Periodo: calendario.sel_periodo
+    row: 2
     col: 0
     width: 24
     height: 12
@@ -109,12 +108,13 @@
     model: ti_rrhh
     explore: vw_complemento_ausentismos_accidentes
     type: looker_grid
-    fields: [vw_complemento_ausentismos_accidentes.division, vw_complemento_ausentismos_accidentes.subdivision,
+    fields: [vw_complemento_ausentismos_accidentes.division_envases, vw_complemento_ausentismos_accidentes.subdivision,
       vw_complemento_ausentismos_accidentes.ausentismos_meta_indicador_month, vw_complemento_ausentismos_accidentes.porcentaje_ausentismo,
       vw_complemento_ausentismos_accidentes.activos_month, vw_complemento_ausentismos_accidentes.ausentismos_month]
     filters:
       vw_complemento_ausentismos_accidentes.area_personal: "-NULL"
-    sorts: [vw_complemento_ausentismos_accidentes.division]
+    sorts: [vw_complemento_ausentismos_accidentes.division_envases, vw_complemento_ausentismos_accidentes.ausentismos_meta_indicador_month
+        desc]
     subtotals: [vw_complemento_ausentismos_accidentes.division]
     limit: 500
     column_limit: 50
@@ -152,16 +152,13 @@
       vw_complemento_ausentismos_accidentes.subdivision: Cto.
       vw_complemento_ausentismos_accidentes.ausentismos_meta_indicador_month: "% Meta\
         \ Ausentismo"
+      vw_complemento_ausentismos_accidentes.division_envases: Div. Negocio
     series_cell_visualizations:
       vw_complemento_ausentismos_accidentes.accidentes_adp_month:
         is_active: true
     header_font_color: "#fff"
     header_background_color: "#b03427"
     series_value_format:
-      vw_complemento_ausentismos_accidentes.ausentismos_month:
-        format_string:
-      vw_complemento_ausentismos_accidentes.activos_month:
-        format_string:
       vw_complemento_ausentismos_accidentes.porcentaje_ausentismo:
         format_string: '0.00'
     x_axis_gridlines: false
@@ -192,12 +189,12 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Periodo: calendario.sel_periodo
-      Division: vw_complemento_ausentismos_accidentes.division
       Centro: vw_complemento_ausentismos_accidentes.subdivision
       Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
       Sociedad: vw_complemento_ausentismos_accidentes.sociedad
-    row: 12
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Periodo: calendario.sel_periodo
+    row: 14
     col: 0
     width: 24
     height: 12
@@ -298,15 +295,521 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Periodo: calendario.sel_periodo
-      Division: vw_complemento_ausentismos_accidentes.division
       Centro: vw_complemento_ausentismos_accidentes.subdivision
       Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
       Sociedad: vw_complemento_ausentismos_accidentes.sociedad
-    row: 24
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Periodo: calendario.sel_periodo
+    row: 26
     col: 0
     width: 24
     height: 12
+  - title: Accidentes
+    name: Accidentes
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_accidentes]
+    sorts: [vw_complemento_ausentismos_accidentes.button_accidentes]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+      Periodo: calendario.sel_periodo
+    row: 0
+    col: 0
+    width: 3
+    height: 1
+  - title: Nomina
+    name: Nomina
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_nomina]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+      Periodo: calendario.sel_periodo
+    row: 0
+    col: 15
+    width: 3
+    height: 1
+  - title: Plantilla
+    name: Plantilla
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_plantilla]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+      Periodo: calendario.sel_periodo
+    row: 0
+    col: 18
+    width: 3
+    height: 1
+  - title: Bajas
+    name: Bajas
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_bajas]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+      Periodo: calendario.sel_periodo
+    row: 0
+    col: 9
+    width: 3
+    height: 1
+  - title: Altas
+    name: Altas
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_altas]
+    sorts: [vw_complemento_ausentismos_accidentes.button_altas]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+      Periodo: calendario.sel_periodo
+    row: 0
+    col: 3
+    width: 3
+    height: 1
+  - title: Capacitacion
+    name: Capacitacion
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_capacitacion]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+      Periodo: calendario.sel_periodo
+    row: 0
+    col: 12
+    width: 3
+    height: 1
+  - title: Ausentismos
+    name: Ausentismos
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_ausentismos]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+      Periodo: calendario.sel_periodo
+    row: 0
+    col: 6
+    width: 3
+    height: 1
+  - title: Vacantes
+    name: Vacantes
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_vacantes]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+      Periodo: calendario.sel_periodo
+    row: 1
+    col: 0
+    width: 3
+    height: 1
+  - title: Rotacion
+    name: Rotacion
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_rotacion]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    listen:
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+      Periodo: calendario.sel_periodo
+    row: 1
+    col: 3
+    width: 3
+    height: 1
   filters:
   - name: Periodo
     title: Periodo
@@ -333,7 +836,7 @@
       display: popover
     model: ti_rrhh
     explore: vw_complemento_ausentismos_accidentes
-    listens_to_filters: []
+    listens_to_filters: [Division, Sociedad, Centro]
     field: vw_complemento_ausentismos_accidentes.codigo_pais
   - name: Division
     title: Division
@@ -346,8 +849,8 @@
       display: popover
     model: ti_rrhh
     explore: vw_complemento_ausentismos_accidentes
-    listens_to_filters: []
-    field: vw_complemento_ausentismos_accidentes.division
+    listens_to_filters: [Codigo Pais, Sociedad, Centro]
+    field: vw_complemento_ausentismos_accidentes.division_envases
   - name: Sociedad
     title: Sociedad
     type: field_filter
@@ -359,7 +862,7 @@
       display: popover
     model: ti_rrhh
     explore: vw_complemento_ausentismos_accidentes
-    listens_to_filters: [Codigo Pais]
+    listens_to_filters: [Codigo Pais, Division, Centro]
     field: vw_complemento_ausentismos_accidentes.sociedad
   - name: Centro
     title: Centro
@@ -372,5 +875,5 @@
       display: popover
     model: ti_rrhh
     explore: vw_complemento_ausentismos_accidentes
-    listens_to_filters: [Division, Codigo Pais]
+    listens_to_filters: [Codigo Pais, Division, Sociedad]
     field: vw_complemento_ausentismos_accidentes.subdivision

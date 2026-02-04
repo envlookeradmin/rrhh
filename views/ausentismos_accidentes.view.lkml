@@ -1,8 +1,11 @@
 include: "parametros.view"
+include: "menu_navegacion_443.view"
+
 
 view: vw_complemento_ausentismos_accidentes {
   sql_table_name: `RPT_CORP.tbl_complemento_ausentismos_accidentes` ;;
-  extends: [parametros]
+  extends: [parametros,menu_navegacion_443]
+
 
   dimension: area_personal {
     type: string
@@ -12,7 +15,7 @@ view: vw_complemento_ausentismos_accidentes {
     type: number
     sql: ${TABLE}.Cantidad ;;
   }
-  dimension: division {
+  dimension: division_envases {
     type: string
     sql: ${TABLE}.Division ;;
   }

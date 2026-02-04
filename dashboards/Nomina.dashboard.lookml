@@ -1,10 +1,10 @@
 ---
 - dashboard: nomina
   title: Nomina
-  layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: O3cczxQBJyVWfS8ExUvgLO
+  preferred_slug: UJH24LWJvxPTZ5OKVbtcUp
+  layout: newspaper
   elements:
   - title: Nomina Total por Area de personal
     name: Nomina Total por Area de personal
@@ -93,12 +93,12 @@
     totals_color: "#808080"
     defaults_version: 1
     listen:
-      Mes Calendario Date: calendario_nomina.mes_calendario_date
-      Division: complemento_nomina.division
-      Subdivision: complemento_nomina.subdivision
+      Periodo: calendario_nomina.mes_calendario_date
       Codigo Pais: complemento_nomina.codigo_pais
+      Division: complemento_nomina.division
       Sociedad: complemento_nomina.sociedad
-    row: 0
+      Centro: complemento_nomina.subdivision
+    row: 2
     col: 1
     width: 15
     height: 11
@@ -199,12 +199,12 @@
     hidden_pivots: {}
     hidden_fields: [complemento_nomina.fecha_pago_month_name]
     listen:
-      Mes Calendario Date: calendario_nomina.mes_calendario_date
-      Division: complemento_nomina.division
-      Subdivision: complemento_nomina.subdivision
+      Periodo: calendario_nomina.mes_calendario_date
       Codigo Pais: complemento_nomina.codigo_pais
+      Division: complemento_nomina.division
       Sociedad: complemento_nomina.sociedad
-    row: 11
+      Centro: complemento_nomina.subdivision
+    row: 13
     col: 1
     width: 14
     height: 7
@@ -284,12 +284,12 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Mes Calendario Date: calendario_nomina.mes_calendario_date
-      Division: complemento_nomina.division
-      Subdivision: complemento_nomina.subdivision
+      Periodo: calendario_nomina.mes_calendario_date
       Codigo Pais: complemento_nomina.codigo_pais
+      Division: complemento_nomina.division
       Sociedad: complemento_nomina.sociedad
-    row: 11
+      Centro: complemento_nomina.subdivision
+    row: 13
     col: 15
     width: 9
     height: 7
@@ -312,12 +312,12 @@
         steps: 5
     defaults_version: 1
     listen:
-      Mes Calendario Date: calendario_nomina.mes_calendario_date
-      Division: complemento_nomina.division
-      Subdivision: complemento_nomina.subdivision
+      Periodo: calendario_nomina.mes_calendario_date
       Codigo Pais: complemento_nomina.codigo_pais
+      Division: complemento_nomina.division
       Sociedad: complemento_nomina.sociedad
-    row: 0
+      Centro: complemento_nomina.subdivision
+    row: 1
     col: 16
     width: 8
     height: 6
@@ -370,12 +370,12 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Mes Calendario Date: calendario_nomina.mes_calendario_date
-      Division: complemento_nomina.division
-      Subdivision: complemento_nomina.subdivision
+      Periodo: calendario_nomina.mes_calendario_date
       Codigo Pais: complemento_nomina.codigo_pais
+      Division: complemento_nomina.division
       Sociedad: complemento_nomina.sociedad
-    row: 18
+      Centro: complemento_nomina.subdivision
+    row: 20
     col: 0
     width: 24
     height: 7
@@ -432,18 +432,280 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Mes Calendario Date: calendario_nomina.mes_calendario_date
-      Division: complemento_nomina.division
-      Subdivision: complemento_nomina.subdivision
+      Periodo: calendario_nomina.mes_calendario_date
       Codigo Pais: complemento_nomina.codigo_pais
+      Division: complemento_nomina.division
       Sociedad: complemento_nomina.sociedad
-    row: 25
+      Centro: complemento_nomina.subdivision
+    row: 27
     col: 0
     width: 24
     height: 7
+  - title: Accidentes
+    name: Accidentes
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_accidentes]
+    sorts: [vw_complemento_ausentismos_accidentes.button_accidentes]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    defaults_version: 1
+    listen:
+      Periodo: calendario.sel_periodo
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+    row: 0
+    col: 0
+    width: 3
+    height: 1
+  - title: Altas
+    name: Altas
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_altas]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    defaults_version: 1
+    listen:
+      Periodo: calendario.sel_periodo
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+    row: 0
+    col: 3
+    width: 3
+    height: 1
+  - title: Ausentismos
+    name: Ausentismos
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_ausentismos]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    defaults_version: 1
+    listen:
+      Periodo: calendario.sel_periodo
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+    row: 0
+    col: 6
+    width: 3
+    height: 1
+  - title: Capacitacion
+    name: Capacitacion
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_capacitacion]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    defaults_version: 1
+    listen:
+      Periodo: calendario.sel_periodo
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+    row: 0
+    col: 12
+    width: 3
+    height: 1
+  - title: Nomina
+    name: Nomina
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_nomina]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    defaults_version: 1
+    listen:
+      Periodo: calendario.sel_periodo
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+    row: 0
+    col: 15
+    width: 3
+    height: 1
+  - title: Bajas
+    name: Bajas
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_bajas]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    defaults_version: 1
+    listen:
+      Periodo: calendario.sel_periodo
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+    row: 0
+    col: 9
+    width: 3
+    height: 1
+  - title: Rotacion
+    name: Rotacion
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_rotacion]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    defaults_version: 1
+    listen:
+      Periodo: calendario.sel_periodo
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+    row: 1
+    col: 0
+    width: 3
+    height: 1
+  - title: Vacantes
+    name: Vacantes
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_vacantes]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    defaults_version: 1
+    listen:
+      Periodo: calendario.sel_periodo
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+    row: 1
+    col: 3
+    width: 3
+    height: 1
+  - title: Plantilla
+    name: Plantilla
+    model: ti_rrhh
+    explore: vw_complemento_ausentismos_accidentes
+    type: single_value
+    fields: [vw_complemento_ausentismos_accidentes.button_plantilla]
+    limit: 500
+    column_limit: 50
+    custom_color_enabled: true
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    smart_single_value_size: true
+    defaults_version: 1
+    listen:
+      Periodo: calendario.sel_periodo
+      Codigo Pais: vw_complemento_ausentismos_accidentes.codigo_pais
+      Division: vw_complemento_ausentismos_accidentes.division_envases
+      Sociedad: vw_complemento_ausentismos_accidentes.sociedad
+      Centro: vw_complemento_ausentismos_accidentes.subdivision
+    row: 0
+    col: 18
+    width: 3
+    height: 1
   filters:
-  - name: Mes Calendario Date
-    title: Mes Calendario Date
+  - name: Periodo
+    title: Periodo
     type: field_filter
     default_value: last month
     allow_multiple_values: true
@@ -467,7 +729,7 @@
       display: popover
     model: ti_rrhh
     explore: complemento_nomina
-    listens_to_filters: []
+    listens_to_filters: [Division, Centro, Sociedad]
     field: complemento_nomina.codigo_pais
   - name: Division
     title: Division
@@ -476,11 +738,11 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: tag_list
+      type: checkboxes
       display: popover
     model: ti_rrhh
     explore: complemento_nomina
-    listens_to_filters: []
+    listens_to_filters: [Codigo Pais, Centro, Sociedad]
     field: complemento_nomina.division
   - name: Sociedad
     title: Sociedad
@@ -493,10 +755,10 @@
       display: popover
     model: ti_rrhh
     explore: complemento_nomina
-    listens_to_filters: [Codigo Pais]
+    listens_to_filters: [Codigo Pais, Division, Centro]
     field: complemento_nomina.sociedad
-  - name: Subdivision
-    title: Subdivision
+  - name: Centro
+    title: Centro
     type: field_filter
     default_value: ''
     allow_multiple_values: true
@@ -506,5 +768,5 @@
       display: popover
     model: ti_rrhh
     explore: complemento_nomina
-    listens_to_filters: [Division, Codigo Pais]
+    listens_to_filters: [Codigo Pais, Division, Sociedad]
     field: complemento_nomina.subdivision

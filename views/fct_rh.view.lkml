@@ -135,6 +135,7 @@ view: fct_rh {
   }
 
 
+
   measure: Importe_TODO {
     type: sum
     sql: ${salario_semanal} ;;
