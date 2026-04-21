@@ -57,3 +57,10 @@ explore: fct_rh {
     relationship: many_to_one
     sql_on: ${fct_rh.division_envases} = ${filtros.division_envases} ;;
   }}
+  explore: fct_rh_2 {
+    join: filtros {
+      type: inner
+      relationship: many_to_one
+      sql_on: ${fct_rh_2.division_envases} = ${filtros.division_envases} ;;
+    }
+  }

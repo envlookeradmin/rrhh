@@ -1,13 +1,16 @@
 ---
 - dashboard: rrhh_nomina
   title: RRHH Nomina
-  layout: newspaper
   preferred_viewer: dashboards-next
   description: ''
   preferred_slug: 86Op5yhe86eGpEdrknFaCV
+  layout: newspaper
+  tabs:
+  - name: ''
+    label: ''
   elements:
-  - title: Analisis por rubro 1
-    name: Analisis por rubro 1
+  - title: Análisis por rubro 1
+    name: Análisis por rubro 1
     model: ti_rrhh
     explore: fct_nomina
     type: looker_grid
@@ -92,23 +95,28 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
+      Subdivision: fct_nomina.subdivision
       Período: fct_nomina.date_filter
       Division Envases: filtros.division_envases
-      Subdivision (2): fct_nomina.subdivision
-    row: 20
+    row: 18
     col: 0
     width: 24
     height: 9
-  - title: Analisis de plantilla
-    name: Analisis de plantilla
+    tab_name: ''
+  - title: Comparativo de Costo Mensual
+    name: Comparativo de Costo Mensual
     model: ti_rrhh
     explore: fct_nomina
     type: looker_grid
-    fields: [fct_nomina.importe_lmonth, fct_nomina.importe_month, fct_nomina.variacion_importe_month_lmonth,
-      fct_nomina.variacion_perc_importe_month_lmonth, fct_nomina.unidad_organizativa]
-    sorts: [fct_nomina.unidad_organizativa]
+    fields: [fct_nomina.subdivision, fct_nomina.unidad_organizativa, fct_nomina.importe_lmonth,
+      fct_nomina.importe_month, fct_nomina.variacion_importe_month_lmonth, fct_nomina.variacion_perc_importe_month_lmonth]
+    filters:
+      fct_nomina.clasificacion_cc: "-NULL"
+    sorts: [fct_nomina.subdivision]
+    subtotals: [fct_nomina.subdivision]
     limit: 500
     column_limit: 50
+    total: true
     show_view_names: false
     show_row_numbers: false
     transpose: false
@@ -172,13 +180,14 @@
     totals_color: "#808080"
     defaults_version: 1
     listen:
+      Subdivision: fct_nomina.subdivision
       Período: fct_nomina.date_filter
       Division Envases: filtros.division_envases
-      Subdivision (2): fct_nomina.subdivision
-    row: 41
+    row: 39
     col: 0
     width: 12
     height: 8
+    tab_name: ''
   - title: Tiempo extra - Acumulado Mensual
     name: Tiempo extra - Acumulado Mensual
     model: ti_rrhh
@@ -225,23 +234,25 @@
     hidden_pivots: {}
     defaults_version: 1
     listen:
+      Subdivision: fct_nomina.subdivision
       Período: fct_nomina.date_filter
       Division Envases: filtros.division_envases
-      Subdivision (2): fct_nomina.subdivision
-    row: 41
+    row: 39
     col: 12
     width: 12
     height: 8
-  - title: Reporte de Analisis de tiempo extra por persona
-    name: Reporte de Analisis de tiempo extra por persona
+    tab_name: ''
+  - title: Reporte de Análisis de tiempo extra por persona
+    name: Reporte de Análisis de tiempo extra por persona
     model: ti_rrhh
     explore: fct_nomina
     type: looker_grid
     fields: [fct_nomina.centro_costos, fct_nomina.codigopersonal, fct_nomina.importe_sueldos,
       fct_nomina.cantidad_tiempo_extra, fct_nomina.importe_tiempo_extra, fct_nomina.tiempo_extra_vs_sueldos]
     filters:
-      fct_nomina.fecha_inicio_week: 2022/02/28
-    sorts: [fct_nomina.codigopersonal desc]
+      fct_nomina.clasificacion_cc: "-NULL"
+    sorts: [fct_nomina.centro_costos, fct_nomina.codigopersonal]
+    subtotals: [fct_nomina.centro_costos]
     limit: 500
     column_limit: 50
     total: true
@@ -276,20 +287,56 @@
     series_cell_visualizations:
       fct_nomina.importe_sueldos_month:
         is_active: false
+    series_collapsed:
+      fct_nomina.centro_costos: true
     header_font_color: "#ffff"
     header_background_color: "#b03427"
     series_value_format:
       fct_nomina.codigopersonal: '0'
+      fct_nomina.importe_sueldos:
+        format_string: ''
+      fct_nomina.cantidad_tiempo_extra:
+        format_string: ''
+      fct_nomina.importe_tiempo_extra:
+        format_string: ''
+    series_tooltip_options:
+      fct_nomina.centro_costos:
+        custom_tooltips_enabled: false
+        style:
+          font_size: 12
+          font_family: Roboto, 'Noto Sans', 'Noto Sans JP', 'Noto Sans CJK KR', 'Noto
+            Sans Arabic UI', 'Noto Sans Devanagari UI', 'Noto Sans Hebrew', 'Noto
+            Sans Thai UI', Helvetica, Arial, sans-serif
+          font_color: "#FFFFFF"
+          background_color: "#262D33"
+          border_radius: 4
+          border_color: transparent
+          box_shadow: none
+          align: left
+        template: |2-
+
+                      <div class="section">
+                      <div>Centro de Costos</div>
+                      <div class="value">{{ fct_nomina.centro_costos }}</div>
+                    </div>
+                      <div class="section">
+                      <div>Codigo de personal</div>
+                      <div class="value">{{ fct_nomina.codigopersonal }}</div>
+                    </div><div class="section">
+                <div>Fct Nomina Centro de Costos</div>
+                <div class="value">{{ fct_nomina.centro_costos }}</div>
+              </div>
     hidden_pivots: {}
     defaults_version: 1
     listen:
+      Subdivision: fct_nomina.subdivision
       Período: fct_nomina.date_filter
       Division Envases: filtros.division_envases
-      Subdivision (2): fct_nomina.subdivision
-    row: 49
+    row: 47
     col: 0
     width: 12
     height: 8
+    tab_name: ''
   - title: Comparativo Plantas / Subdivisiones
     name: Comparativo Plantas / Subdivisiones
     model: ti_rrhh
@@ -297,6 +344,8 @@
     type: looker_grid
     fields: [fct_nomina.subdivision, fct_nomina.importe_lyear, fct_nomina.importe_year,
       fct_nomina.variacion_importe_year_lyear, fct_nomina.variacion_perc_importe_year_lyear]
+    filters:
+      fct_nomina.clasificacion_cc: "-NULL"
     sorts: [fct_nomina.importe_lyear desc 0]
     limit: 500
     column_limit: 50
@@ -367,118 +416,14 @@
     totals_color: "#808080"
     defaults_version: 1
     listen:
+      Subdivision: fct_nomina.subdivision
       Período: fct_nomina.date_filter
       Division Envases: filtros.division_envases
-      Subdivision (2): fct_nomina.subdivision
-    row: 49
+    row: 47
     col: 12
     width: 12
     height: 8
-  - name: ''
-    type: text
-    title_text: ''
-    body_text: "<div style=\"border-radius: 5px; padding: 5px 10px; background: #5e2129;\
-      \ height: 60px; color: red;\">\n\t<nav style=\"font-size: 18px;\">\n\t\t<img\
-      \ style=\"color: #efefef; padding: 5px 15px; float: left; height: 40px;\" src=\"\
-      https://wwwstatic.lookercdn.com/logos/looker_all_white.svg\"/>\n\t\t<a style=\"\
-      color: #efefef; padding: 5px 15px; float: left; line-height: 40px; font-weight:\
-      \ bold;\" href=\"https://envases.cloud.looker.com/dashboards/9\"></a>\n\t\t\
-      <a style=\"color: #efefef; padding: 5px 15px; float: left; line-height: 40px;\
-      \ font-weight: bold;\" href=\"https://envases.cloud.looker.com/dashboards/11\"\
-      ></a>\n\t\t\n\t</nav>\n</div>"
-    row: 0
-    col: 0
-    width: 24
-    height: 2
-  - title: Comparativo
-    name: Comparativo
-    model: ti_rrhh
-    explore: fct_rh
-    type: looker_grid
-    fields: [fct_rh.subdivision, fct_rh.CONTEO_TODO, fct_rh.Importe_TODO, fct_rh.inicio_year,
-      fct_rh.unidad_organizativa]
-    pivots: [fct_rh.inicio_year]
-    fill_fields: [fct_rh.inicio_year]
-    filters:
-      fct_rh.inicio_year: 3 years
-    sorts: [fct_rh.subdivision, fct_rh.inicio_year, fct_rh.unidad_organizativa]
-    subtotals: [fct_rh.subdivision]
-    limit: 1500
-    column_limit: 50
-    show_view_names: false
-    show_row_numbers: false
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    limit_displayed_rows: false
-    enable_conditional_formatting: false
-    header_text_alignment: left
-    header_font_size: '12'
-    rows_font_size: '12'
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    show_sql_query_menu_options: false
-    column_order: [fct_rh.subdivision, fct_rh.unidad_organizativa, 2023_fct_rh.Importe_TODO,
-      2023_fct_rh.CONTEO_TODO, 2024_fct_rh.Importe_TODO, 2024_fct_rh.CONTEO_TODO,
-      2025_fct_rh.Importe_TODO, 2025_fct_rh.CONTEO_TODO]
-    show_totals: true
-    show_row_totals: true
-    truncate_header: false
-    minimum_column_width: 75
-    series_labels:
-      fct_rh.CONTEO_TODO: HC
-      fct_rh.inicio_year: Año
-      fct_rh.Importe_TODO: Costo
-    series_cell_visualizations:
-      fct_rh.Importe_TODO:
-        is_active: false
-    series_collapsed:
-      fct_rh.subdivision: true
-    header_font_color: "#fff"
-    header_background_color: "#b03427"
-    series_value_format:
-      fct_rh.Importe_TODO:
-        format_string:
-      fct_rh.CONTEO_TODO:
-        format_string:
-    hidden_pivots: {}
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    defaults_version: 1
-    listen:
-      Período: fct_rh.date_filter
-      Division Envases: filtros.division_envases
-      Subdivision: fct_rh.subdivision
-    row: 35
-    col: 0
-    width: 24
-    height: 6
+    tab_name: ''
   - title: Acumulado de Nomina Anual
     name: Acumulado de Nomina Anual
     model: ti_rrhh
@@ -544,6 +489,9 @@
     series_cell_visualizations:
       fct_nomina.lyear:
         is_active: false
+    series_text_format:
+      percent_of_fct_nomina_variacion_anual_ano_actual_vs_ano_pasado:
+        align: right
     series_collapsed:
       fct_nomina.clasificacion_cc: true
     header_font_color: "#ffff"
@@ -577,13 +525,14 @@
     hidden_pivots: {}
     hidden_fields: []
     listen:
+      Subdivision: fct_nomina.subdivision
       Período: fct_nomina.date_filter
       Division Envases: filtros.division_envases
-      Subdivision (2): fct_nomina.subdivision
-    row: 2
+    row: 0
     col: 0
     width: 24
     height: 6
+    tab_name: ''
   - title: Acumulado de Nomina Mensual
     name: Acumulado de Nomina Mensual
     model: ti_rrhh
@@ -704,15 +653,16 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
+      Subdivision: fct_nomina.subdivision
       Período: fct_nomina.date_filter
       Division Envases: filtros.division_envases
-      Subdivision (2): fct_nomina.subdivision
-    row: 8
+    row: 6
     col: 0
     width: 24
     height: 6
-  - title: Análisis por rubro 2
-    name: Análisis por rubro 2
+    tab_name: ''
+  - title: Análisis Anual - Otras Percepciones
+    name: Análisis Anual - Otras Percepciones
     model: ti_rrhh
     explore: fct_nomina
     type: looker_grid
@@ -813,13 +763,14 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
+      Subdivision: fct_nomina.subdivision
       Período: fct_nomina.date_filter
       Division Envases: filtros.division_envases
-      Subdivision (2): fct_nomina.subdivision
-    row: 29
+    row: 27
     col: 0
     width: 24
     height: 6
+    tab_name: ''
   - title: Comparativo Subdivisiones con desglose de rubros de pago
     name: Comparativo Subdivisiones con desglose de rubros de pago
     model: ti_rrhh
@@ -916,15 +867,16 @@
     totals_color: "#808080"
     defaults_version: 1
     listen:
+      Subdivision: fct_nomina.subdivision
       Período: fct_nomina.date_filter
       Division Envases: filtros.division_envases
-      Subdivision (2): fct_nomina.subdivision
-    row: 57
+    row: 55
     col: 0
     width: 24
     height: 7
-  - title: Análisis Tiempo Extra Acumulado
-    name: Análisis Tiempo Extra Acumulado
+    tab_name: ''
+  - title: Análisis Tiempo Extra Acumulado Anual
+    name: Análisis Tiempo Extra Acumulado Anual
     model: ti_rrhh
     explore: fct_nomina
     type: looker_grid
@@ -1015,6 +967,9 @@
     series_cell_visualizations:
       fct_nomina.lyear:
         is_active: false
+    series_text_format:
+      percent_of_fct_nomina_cantidad_del_ano_actual:
+        align: right
     series_collapsed:
       fct_nomina.clasificacion_cc: true
       fct_nomina.subdivision: true
@@ -1055,12 +1010,148 @@
     defaults_version: 1
     hidden_pivots: {}
     listen:
+      Subdivision: fct_nomina.subdivision
       Período: fct_nomina.date_filter
-      Subdivision (2): fct_nomina.subdivision
-    row: 14
+      Division Envases: filtros.division_envases
+    row: 12
     col: 0
     width: 24
     height: 6
+    tab_name: ''
+  - title: Comparativo HC
+    name: Comparativo HC
+    model: ti_rrhh
+    explore: fct_rh_2
+    type: looker_grid
+    fields: [fct_rh_2.subdivision, fct_rh_2.unidad_organizativa, fct_rh_2.total_salario,
+      fct_rh_2.head_count, fct_rh_2.periodo_year]
+    pivots: [fct_rh_2.periodo_year]
+    fill_fields: [fct_rh_2.periodo_year]
+    sorts: [fct_rh_2.subdivision, fct_rh_2.periodo_year]
+    subtotals: [fct_rh_2.subdivision]
+    limit: 1500
+    column_limit: 50
+    total: true
+    dynamic_fields:
+    - category: table_calculation
+      expression: pivot_index(${fct_rh_2.total_salario},3) - pivot_index(${fct_rh_2.total_salario},2)
+      label: Var. Sueldo 26 vs 25
+      value_format:
+      value_format_name: usd
+      _kind_hint: supermeasure
+      table_calculation: var_sueldo_26_vs_25
+      _type_hint: number
+      is_disabled: false
+    - category: table_calculation
+      expression: pivot_index(${fct_rh_2.total_salario},2) - pivot_index(${fct_rh_2.total_salario},1)
+      label: Var. Sueldo 25 vs 24
+      value_format:
+      value_format_name: usd
+      _kind_hint: supermeasure
+      table_calculation: var_sueldo_25_vs_24
+      _type_hint: number
+      is_disabled: true
+    - category: table_calculation
+      expression: pivot_index(${fct_rh_2.head_count},2) - pivot_index(${fct_rh_2.head_count},1)
+      label: Var. HC 25 vs 24
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: supermeasure
+      table_calculation: var_hc_25_vs_24
+      _type_hint: number
+      is_disabled: false
+    - category: table_calculation
+      expression: pivot_index(${fct_rh_2.head_count},3) - pivot_index(${fct_rh_2.head_count},2)
+      label: Var. HC 26 vs 25
+      value_format:
+      value_format_name: decimal_0
+      _kind_hint: supermeasure
+      table_calculation: var_hc_26_vs_25
+      _type_hint: number
+      is_disabled: false
+    - category: table_calculation
+      expression: "(pivot_index(${fct_rh_2.head_count},2) - pivot_index(${fct_rh_2.head_count},1))\
+        \ / pivot_index(${fct_rh_2.head_count},1)"
+      label: "% 25 vs 24"
+      value_format:
+      value_format_name: percent_2
+      _kind_hint: supermeasure
+      table_calculation: vs_24
+      _type_hint: number
+      is_disabled: false
+    - category: table_calculation
+      expression: "(pivot_index(${fct_rh_2.head_count},3) - pivot_index(${fct_rh_2.head_count},2))\
+        \ / pivot_index(${fct_rh_2.head_count},2)"
+      label: "% 26 vs 25"
+      value_format:
+      value_format_name: percent_2
+      _kind_hint: supermeasure
+      table_calculation: vs_25
+      _type_hint: number
+      is_disabled: false
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: '12'
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    color_application:
+      collection_id: 80e60a97-c02b-4a41-aa05-83522ee2144b
+      palette_id: 629b455f-662e-4854-a424-4f0c9d4bbdfb
+    show_sql_query_menu_options: false
+    column_order: [fct_rh_2.subdivision, fct_rh_2.unidad_organizativa, 2024_fct_rh_2.total_salario,
+      2024_fct_rh_2.head_count, 2025_fct_rh_2.total_salario, 2025_fct_rh_2.head_count,
+      2026_fct_rh_2.total_salario, 2026_fct_rh_2.head_count, var_sueldo_25_vs_24,
+      var_hc_25_vs_24, vs_24, var_sueldo_26_vs_25, var_hc_26_vs_25, vs_25]
+    show_totals: true
+    show_row_totals: true
+    truncate_header: false
+    minimum_column_width: 100
+    series_labels:
+      fct_rh_2.total_salario: Sueldo Mensual
+      fct_rh_2.head_count: HC
+      vs_24: "%"
+      vs_25: "%"
+    series_cell_visualizations:
+      fct_rh_2.head_count:
+        is_active: true
+    table_enable_pagination: false
+    table_page_size_options: 20, 50, 100
+    series_collapsed:
+      fct_rh_2.subdivision: true
+    table_column_hover_highlight_enable: false
+    table_show_headers: true
+    header_font_color: "#fff"
+    header_background_color: "#b03427"
+    header_font_bold: false
+    header_font_italic: false
+    cell_font_size: '12'
+    cell_font_weight: ''
+    cell_font_style: ''
+    cell_text_alignment: ''
+    table_custom_border_enable: false
+    table_custom_border_width:
+    table_custom_border_color: "#dde2eb"
+    table_custom_border_style: solid
+    defaults_version: 1
+    hidden_pivots: {}
+    listen:
+      Período: fct_rh_2.date_filter
+      Division Envases: fct_rh_2.division_envases
+    row: 33
+    col: 0
+    width: 24
+    height: 6
+    tab_name: ''
   filters:
   - name: Período
     title: Período
@@ -1099,19 +1190,6 @@
       type: tag_list
       display: popover
     model: ti_rrhh
-    explore: fct_rh
-    listens_to_filters: [Division Envases]
-    field: fct_rh.subdivision
-  - name: Subdivision (2)
-    title: Subdivision (2)
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: tag_list
-      display: popover
-    model: ti_rrhh
     explore: fct_nomina
-    listens_to_filters: []
+    listens_to_filters: [Division Envases]
     field: fct_nomina.subdivision
